@@ -1,6 +1,8 @@
 package br.com.ada.sebo.service;
 
 import br.com.ada.sebo.model.dto.LivroDTO;
+import br.com.ada.sebo.model.entity.CategoriaEntity;
+import br.com.ada.sebo.model.entity.EditoraEntity;
 import br.com.ada.sebo.model.entity.LivroEntity;
 import br.com.ada.sebo.model.mapper.LivroMapper;
 import br.com.ada.sebo.repository.LivroRepository;
@@ -64,5 +66,26 @@ public class LivroService {
             return;
         }
         throw new EntityNotFoundException("Ops... Livro não encontrado!");
+    }
+
+    public List<LivroDTO> listarPorCategoria(Long id) {
+        CategoriaEntity categoria = new CategoriaEntity();
+        categoria.setId(id);
+
+        List<LivroEntity> entities = repository.findByCategoria(categoria);
+        return mapper.updateListToDTO(entities);
+    }
+
+    public List<LivroDTO> listarPorEditora(Long id) {
+        EditoraEntity editora = new EditoraEntity();
+        editora.setId(id);
+
+        List<LivroEntity> entities = repository.findByEditora(editora);
+        return mapper.updateListToDTO(entities);
+    }
+
+    public List<LivroDTO> listarPorNomeOuIsbn(String nome, String isbn) {
+        List<LivroEntity> entities = repository.findByNomeOrIsbn(nome, isbn);
+        return mapper.updateListToDTO(entities);
     }
 }

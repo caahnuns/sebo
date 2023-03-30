@@ -96,4 +96,45 @@ public class LivroController {
                     .body(new MensagemDTO(e.getMessage()));
         }
     }
+
+    @GetMapping("/categoria/{id}")
+    public ResponseEntity<Object> listarPorCategoria(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(service.listarPorCategoria(id));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensagemDTO(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/editora/{id}")
+    public ResponseEntity<Object> listarPorEditora(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(service.listarPorEditora(id));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensagemDTO(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<Object> listarPorNomeOuIsbn(@RequestParam(name = "nome") String nome,
+                                                      @RequestParam(name = "isbn") String isbn) {
+        try {
+            return ResponseEntity.ok(service.listarPorNomeOuIsbn(nome, isbn));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new MensagemDTO(e.getMessage()));
+        }
+    }
+
 }
