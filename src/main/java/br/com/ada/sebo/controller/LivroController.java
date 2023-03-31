@@ -124,8 +124,8 @@ public class LivroController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<Object> listarPorNomeOuIsbn(@RequestParam(name = "nome") String nome,
-                                                      @RequestParam(name = "isbn") String isbn) {
+    public ResponseEntity<Object> listarPorNomeOuIsbn(@RequestParam(name = "nome", defaultValue = " ") String nome,
+                                                      @RequestParam(name = "isbn", defaultValue = " ") String isbn) {
         try {
             return ResponseEntity.ok(service.listarPorNomeOuIsbn(nome, isbn));
         } catch (Exception e) {
